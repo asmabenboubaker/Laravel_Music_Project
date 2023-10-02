@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CatController;
+use App\Http\Controllers\CategorieController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::resource('blog', BlogController::class);
+Route::resource('categories', CategorieController::class);
+ 
+// Route::post('/end', 'BlogController@store')->name('Blog.store');
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +36,8 @@ Route::get('/blogs', function () {
     return view('Blogs');
 });
 
+//route to save blog in database
+Route::post('/addblog2s', 'App\Http\Controllers\BlogController@store')->name('Blog.store');
 
 Route::get('/blogDetail', function () {
     return view('blogDetail');
@@ -36,4 +46,8 @@ Route::get('/blogDetail', function () {
 
 Route::get('/event', function () {
     return view('Event');
+});
+
+Route::get('/addBlog', function () {
+    return view('create');
 });
