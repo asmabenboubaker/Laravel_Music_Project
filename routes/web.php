@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::get('/blogDetail', function () {
 });
 
 
-Route::get('/event', function () {
-    return view('Event');
-});
+
+
+
+Route::resource("/event", EventController::class);
