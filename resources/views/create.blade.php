@@ -62,7 +62,7 @@
 
                     <div id="form" class="opacity-contact">
   
-                    <form id="myForm" action="{{ route('blog.store') }}" method="POST">
+                    <form id="myForm" action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
     @csrf  <!-- Include CSRF token, important for Laravel forms -->
 
     <!-- For the title -->
@@ -79,6 +79,8 @@
     @error('content')
     <div class="alert alert-danger">{{ $message }}</div>
 @enderror
+ <!-- Image upload input -->
+<input type="file" name="image">
     <button type="submit" id="submit" class="hover">Add</button>
 </form>
 

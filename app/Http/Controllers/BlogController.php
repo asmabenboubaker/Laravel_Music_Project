@@ -37,15 +37,27 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-       $request ->validate([
-           'title'=>'required',
-           'content'=>'required',
-           
-       ]);
+       // 1. Add image validation
+    $request->validate([
+        'title' => 'required',
+        'content' => 'required',
+        // 'image' => 'nullable|image|max:2048',  // Validates the file upload is an image and its size is not more than 2MB
+    ]);
 
-         Blog::create($request->all());
-            return redirect('blog')
-            ->with('success','Blog created successfully.');
+    $data = $request->only(['title', 'content']);
+
+    // 2. Handle the image upload
+    if ($request->hasFile('image')) {
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $imageName); // This will save the image to public/images directory
+        $data['image'] = $imageName; // Store the filename to save in the database
+    }
+
+    // 3. Insert the data
+    Blog::create($data);
+
+    return redirect('blog')->with('success', 'Blog created successfully.');
+
     }
 
     /**

@@ -3,6 +3,7 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,7 @@ Route::get('/blogs', function () {
 //route to save blog in database
 Route::post('/addblog2s', 'App\Http\Controllers\BlogController@store')->name('Blog.store');
 
+Route::post('/blog/{blog}/comments', [CommentController::class, 'store'])->name('comments.store');
 Route::get('/blogDetail', function () {
     return view('blogDetail');
 });

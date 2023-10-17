@@ -68,7 +68,13 @@
     <!-- BLOG -->
     <div class="blog fade-up">
             <div class="blog-img">
-                <img src="{{Vite::asset('resources/assets/images/album-thumbnail-five.jpg')}}" alt="blog-img">
+             
+            @if($item->image)
+      <img src="{{ asset('images/' . $item->image) }}" alt="Blog Image">
+   @else
+      <p>No image for this blog post.</p>
+   @endif
+                <!-- <img src="{{Vite::asset('resources/assets/images/album-thumbnail-five.jpg')}}" alt="blog-img"> -->
             </div>
             <div class="blog-text">
                 <div class="blog-heading">{{ $item->title }}</div>
