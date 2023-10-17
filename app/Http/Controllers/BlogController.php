@@ -37,11 +37,12 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-    //    $request ->validate([
-    //        'title'=>'required',
-    //        'content'=>'required',
-    //        'category_id'=>'required',
-    //    ]);
+       $request ->validate([
+           'title'=>'required',
+           'content'=>'required',
+           
+       ]);
+
          Blog::create($request->all());
             return redirect('blog')
             ->with('success','Blog created successfully.');
@@ -50,41 +51,44 @@ class BlogController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Blog  $blog
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function show($id)
     {
-        return view('blog.show',compact('blog'));
+        $blog=Blog::find($id);
+        return view('show',compact('blog'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Blog  $blog
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $blog = Blog::find($id);
-            return view('edit',compact('blog'));
+        return view('edit', compact('blog'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Blog  $blog
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request,$id)
     {
             
-            $request ->validate([
-                'title'=>'required',
-                'content'=>'required',
-                'category_id'=>'required',
-            ]);
+            // $request ->validate([
+            //     'title'=>'required',
+            //     'content'=>'required',
+            //     'category_id'=>'required',
+            // ]);
+            $blog=Blog::find($id);
+
             $blog->update($request->all());
             return redirect('blog')
             ->with('success','Blog updated successfully.');

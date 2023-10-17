@@ -69,10 +69,16 @@
     <div class="input-line">
         <input id="name" name="title" type="text" placeholder="title" class="input-same-line" required>
     </div>
+    @error('title')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
     <!-- For the content -->
     <div class="input-line-column">
         <textarea name="content" id="body" class="textarea" placeholder="subject" required></textarea>
     </div>
+    @error('content')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
     <button type="submit" id="submit" class="hover">Add</button>
 </form>
 

@@ -43,7 +43,7 @@
             <!-- NAVIGATION -->
             <div class="navigation">
                 <div class="logo hover ">
-                   <a href="index-two.html" class="text">ARLO BROWN</a>
+                   <a href="{{ url('/addBlog' )}}" class="text">Add blog</a>
                 </div>
                 <div class="menu-bar hover ">
                     <div class="menu-bar-name text">
@@ -76,7 +76,7 @@
                 <div class="blog-info">
                     <div class="blog-duration"><img src="{{Vite::asset('resources/assets/images/clock.png')}}" alt="clock">&nbsp; 4 Min </div>
                     <div class="blog-type">Story/Experience</div>
-                    <a href="blog-single.html" title="Read More">
+                    <a href="{{ url('/blog/' . $item->id) }}"  title="Read More">
                         <div class="blog-read-more">
                            <i class="gg-arrow-right"></i>
                         </div>
@@ -84,13 +84,14 @@
                 </div>
             </div>
         <div class="blog-date">3 Aug,20</div>
-        <form method="POST" action="{{ url('/blog' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+        <form  method="POST" action="{{ url('/blog' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
             <button type="submit" class="btn btn-primary mx-1" title="Delete Event" onclick="return confirm('Confirm delete?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
 
-        </form>
-        <a href="{{ url('/blog/' . $item->id . '/edit') }}" title="Edit event" class="btn btn-primary mx-1"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+        </form> <br>
+        <a href="{{ url('/blog/' . $item->id . '/edit') }}" title="Edit event" class="btn btn-primary mx-1"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></br>
+
     </div>
     @endforeach
     <!-- BLOG -->
@@ -123,7 +124,7 @@
 
     <div class="navigation-content">
         <div class="navigation-logo hover opacity">
-            <a href="#" class="text">ARLO BROWN</a>
+            <a href="#" class="text">Add blog</a>
          </div>
         <ul class="navigation-ul">
             <li><a href="index-two.html" data-text="Home" data-img="{{Vite::asset('resources/assets/images/bg-image-three.jpg')}}">Home</a></li>

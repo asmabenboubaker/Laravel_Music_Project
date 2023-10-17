@@ -61,20 +61,18 @@
 
 
                     <div id="form" class="opacity-contact">
-  
-                    <form id="myForm"  action="{{ url('blog') }}" method="POST">
-                    @csrf
-        
-    <!-- For the title -->
-    <div class="input-line">
-        <input id="name" name="title" type="text" placeholder="title" class="input-same-line" value="{{ old('title', $blog->title) }}" required>
-    </div>
-    <!-- For the content -->
-    <div class="input-line-column">
-        <textarea name="content" id="body" class="textarea" placeholder="subject" required>{{ old('content', $blog->content) }}</textarea>
-    </div>
-    <button type="submit" id="submit" class="hover">update</button>
-</form>
+                    <form action="{{ url('blog/' .$blog->id) }}" method="post"> 
+                    {!! csrf_field() !!}
+        @method("PATCH")
+        <label>Nom</label></br>
+        <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $blog->title) }}"></br>
+        <label>Description</label></br>
+        <textarea type="text" name="content" id="content" class="textarea"  > {{ old('content', $blog->content) }}</textarea>
+
+        </br>
+       
+        <input type="submit" value="Save" class="btn btn-success"></br>
+    </form>
 
 
                     </div>

@@ -51,3 +51,6 @@ Route::get('/event', function () {
 Route::get('/addBlog', function () {
     return view('create');
 });
+
+Route::get('edit/{id}/edit', 'BlogController@edit')->name('blog.edit');
+// Route::patch('/blog/{id}', 'BlogController@update')->name('blog.update');
