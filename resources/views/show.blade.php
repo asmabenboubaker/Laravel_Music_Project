@@ -1,7 +1,12 @@
 @extends('template')
 
 @section('content')
+<head>
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
 <body>
   <main id="blog-single">
 
@@ -68,11 +73,17 @@
 <p>{{ $blog->content }}</p>
 
 <!-- Comments section -->
-@foreach($blog->comments as $comment)
-    <div>
-        <p>{{ $comment->content }}</p>
-    </div>
-@endforeach
+ 
+
+
+<div id="commentsList">
+    @foreach($blog->comments as $comment)
+        <div>
+            <p>{{ $comment->content }}</p>
+        </div>
+    @endforeach
+</div>
+
 
 <h3>Add a Comment</h3>
 
@@ -244,6 +255,34 @@
 
 
   </main>
+  <script>
+$(document).ready(function() {
+    $('form').on('submit', function(e) {
+        e.preventDefault(); // Prevents default form submission
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                // Append the new comment to the comments section
+                let newComment = `<div><p>${response.comment.content}</p></div>`;
+                $(newComment).appendTo('#commentsList'); 
+
+                // Clear the textarea after submission
+                $('textarea[name="content"]').val('');
+            },
+            error: function(error) {
+                // Handle any errors here. For now, we'll just log them.
+                console.error("There was an error adding the comment:", error);
+            }
+        });
+    });
+});
+</script>
 
 
 

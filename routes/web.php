@@ -40,7 +40,8 @@ Route::get('/blogs', function () {
 //route to save blog in database
 Route::post('/addblog2s', 'App\Http\Controllers\BlogController@store')->name('Blog.store');
 
-Route::post('/blog/{blog}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::post('/comments/{blog}', [CommentController::class, 'store'])->name('comments.store');
+// Route::post('/comments/{blog}', 'CommentController@store')->name('comments.store');
 Route::get('/blogDetail', function () {
     return view('blogDetail');
 });

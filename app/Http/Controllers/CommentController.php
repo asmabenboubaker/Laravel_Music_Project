@@ -10,15 +10,27 @@ class CommentController extends Controller
 {
     public function store(Request $request, $blogId)
     {
+        
         $request->validate([
-            'content' => 'required',
-        ]);
+        'content' => 'required',
+    ]);
 
-        $blog = Blog::findOrFail($blogId);
+    $blog = Blog::findOrFail($blogId);
 
-        $comment = new Comment(['content' => $request->content]);
-        $blog->comments()->save($comment);
+    $comment = new Comment(['content' => $request->content]);
+    $blog->comments()->save($comment);
 
-        return redirect()->back()->with('success', 'Comment added successfully!');
+    return response()->json(['comment' => $comment]);
     }
+    /*
+     $comment = new Comment($request->all());
+    $blog->comments()->save($comment);
+    
+    if ($request->ajax()) {
+        return response()->json($comment, 201);
+    }
+
+    // For non-ajax requests, redirect back or to any other location
+    return redirect()->back();
+    */
 }
