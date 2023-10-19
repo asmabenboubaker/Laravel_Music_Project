@@ -3,6 +3,7 @@
 @section('content')
 
 <body>
+ 
 
 
     <!-- MAIN CONTENT -->
@@ -89,6 +90,7 @@
                         </a>
                 </div>
             </div>
+         
         <div class="blog-date">3 Aug,20</div>
         <form  method="POST" action="{{ url('/blog' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
             {{ method_field('DELETE') }}
@@ -97,8 +99,9 @@
 
         </form> <br>
         <a href="{{ url('/blog/' . $item->id . '/edit') }}" title="Edit event" class="btn btn-primary mx-1"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></br>
-
+    
     </div>
+    
     @endforeach
     <!-- BLOG -->
 

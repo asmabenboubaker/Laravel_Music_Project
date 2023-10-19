@@ -61,13 +61,12 @@
 
         <!-- BLOG IMG -->
         <div class="blog-img img">
-
-          <img src="{{Vite::asset('resources/assets/images/main-bg-three.jpg')}}" alt="blog-img">
+        <img src="{{ asset('images/' . $blog->image) }}" alt="Blog Image">
+       
 
         </div>
         <!-- BLOG IMG -->
-        <p>{{ $blog->title }}</p>
-        <p>{{ $blog->content }}</p>
+        
 
         <h2>{{ $blog->title }}</h2>
 <p>{{ $blog->content }}</p>
@@ -79,7 +78,7 @@
 <div id="commentsList">
     @foreach($blog->comments as $comment)
         <div>
-            <p>{{ $comment->content }}</p>
+        <p><strong>{{ $comment->user->name }}</strong>: {{ $comment->content }}</p>
         </div>
     @endforeach
 </div>
