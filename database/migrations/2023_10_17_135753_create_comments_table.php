@@ -17,10 +17,15 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('blog_id');
             $table->text('content');
+            $table->unsignedBigInteger('user_id');  // Adding the user_id column
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->foreign('blog_id')
             ->references('id')->on('blog')
             ->onDelete('cascade');
+            // user
+             
+
         });
     }
 
@@ -31,6 +36,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::table('comments', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
+        });
     }
 };

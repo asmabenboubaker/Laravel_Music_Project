@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -17,7 +18,10 @@ class CommentController extends Controller
 
     $blog = Blog::findOrFail($blogId);
 
-    $comment = new Comment(['content' => $request->content]);
+    $comment = new Comment(['content' => $request->content,
+    // 'user_id' => Auth::id() 
+
+]);
     $blog->comments()->save($comment);
 
     return response()->json(['comment' => $comment]);
