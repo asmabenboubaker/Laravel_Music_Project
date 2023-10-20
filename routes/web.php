@@ -70,6 +70,12 @@ Route::middleware('auth')->group(function () {
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
+// chatt ========================================
+
+Route::get('/', 'App\Http\Controllers\PusherController@index');
+Route::post('/', 'App\Http\Controllers\PusherController@broadcast');
+Route::post('/message', 'App\Http\Controllers\PusherController@message');
+
 require __DIR__.'/auth.php';
 
 
