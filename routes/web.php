@@ -6,8 +6,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\TypeController;
+
 
 
 /*
@@ -45,6 +47,12 @@ Route::get('/blogDetail', function () {
     return view('blogDetail');
 });
 
+
+
+
+
+
+Route::resource("/event", EventController::class);
 
 Route::get('/event', function () {
     return view('Event');
@@ -100,6 +108,7 @@ Route::get('/audio/{filename}', function ($filename) {
 
 // Route Type
 Route::resource("/types", TypeController::class);
+
 
 
 
