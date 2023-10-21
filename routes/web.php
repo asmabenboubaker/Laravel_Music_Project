@@ -6,6 +6,9 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MusicController;
+use App\Http\Controllers\TypeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +50,7 @@ Route::get('/event', function () {
     return view('Event');
 });
 
+
 Route::get('/addBlog', function () {
     return view('create');
 });
@@ -77,5 +81,25 @@ Route::post('/', 'App\Http\Controllers\PusherController@broadcast');
 Route::post('/message', 'App\Http\Controllers\PusherController@message');
 
 require __DIR__.'/auth.php';
+
+
+Route::resource('/musicindex', MusicController::class);
+
+
+Route::get('/audio/{filename}', function ($filename) {
+    $externalDirectory = 'C:/MusicFiles'; // Chemin vers le répertoire en dehors de l'application
+    $path = $externalDirectory . '/' . $filename;
+
+    if (file_exists($path)) {
+        return response()->file($path, ['Content-Type' => 'audio/mpeg']);
+    } else {
+        abort(404);
+    }
+});
+
+
+// Route Type
+Route::resource("/types", TypeController::class);
+
 
 
