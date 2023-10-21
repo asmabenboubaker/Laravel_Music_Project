@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MusicController;
+use App\Http\Controllers\TypeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +40,24 @@ Route::get('/blogDetail', function () {
 Route::get('/event', function () {
     return view('Event');
 });
+
+
+Route::resource('/musicindex', MusicController::class);
+
+
+Route::get('/audio/{filename}', function ($filename) {
+    $externalDirectory = 'C:/MusicFiles'; // Chemin vers le répertoire en dehors de l'application
+    $path = $externalDirectory . '/' . $filename;
+
+    if (file_exists($path)) {
+        return response()->file($path, ['Content-Type' => 'audio/mpeg']);
+    } else {
+        abort(404);
+    }
+});
+
+
+// Route Type
+Route::resource("/types", TypeController::class);
+
+
