@@ -41,18 +41,18 @@ class TicketController extends Controller
     public function store(Request $request)
     {
 
-         $request->validate([
-            'prix' => 'required',
-            'date_achat' => 'required',
-            'event_id' => 'required',
-        ]);
-        $input = $request->all();
-        $input['user_id'] = 1; 
+        $id = $request->input('id');
+        $input['user_id'] = 1;
+        $input['event_id'] = $id;
+        $input['date_achat'] =date('m/d/Y');
+        $input['prix'] = 50;
+
+
+        // Create a new row in the database using the $id
         Ticket::create($input);
-        return redirect('ticket')->with('flash_message', 'Ticket Addedd!');  
+
+        return redirect('event')->with('flash_message', 'Ticket Addedd!');
         
-
-
     }
 
     /**

@@ -103,27 +103,32 @@
 
 
             </div>
-            
-            
+            <form method="POST" action="{{ route('ticket.store') }}">
+                @csrf
+                <input type="hidden" name="id" value="{{ $item->id }}">
+                <button type="button" class="btn btn-danger">Participer</button>
+            </form>
+  
         </div>
        
     </div>
- <!-- //boutton reservé -->
- <div class="reserve">
- <button type="button" class="btn btn-danger">reserve</button>
                 </div>
     @endforeach
 
-        <!-- SONG -->
+
 
         
 
 
 
 </div>
+@if(session('flash_message'))
+<div class="alert alert-success">
+    {{ session('flash_message') }}
+</div>
+@endif
 </div>
 
-<!-- SONGS CONTAINER -->
 
 
 
