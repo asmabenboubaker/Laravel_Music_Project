@@ -66,7 +66,7 @@
 
 
 
-    
+
 
     
     
@@ -80,7 +80,9 @@
     
     
         <div class="song-img">
-            <img src="{{Vite::asset('resources/assets/images/main-bg-three.jpg')}}" alt="song">
+            <!-- <img src="{{Vite::asset('resources/assets/images/main-bg-three.jpg')}}" alt="song"> -->
+            <img src="{{ asset('images/' . $item->image) }}" alt="Blog Image">
+
         </div>
     
         <div class="song-details">
@@ -96,22 +98,47 @@
             
                 <div class="artist-name">Artiste :{{ $item->artiste }}</div>
                 <div class="artist-name">Categorie :{{ $item->categorie }}</div>
-
+                
 
 
 
             </div>
+            <!-- <form method="POST" action="{{ route('ticket.store') }}">
+                @csrf
+                <input type="hidden" name="id" value="{{ $item->id }}">
+                <button type="button" class="btn btn-danger">Participer</button>
+                <a href="{{ url('/event/' . $item->id) }}" title="View event" class="btn btn-primary mx-1"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+
+            </form> -->
+            <form method="POST" action="{{ route('ticket.store') }}">
+                @csrf
+                <input type="hidden" name="id" value="{{ $item->id }}">
+                <button type="submit">Participer</button>
+                
+                <a href="{{ url('/event/' . $item->id) }}" title="View event" class="btn btn-primary mx-1"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+
+            </form>
+            
+           
             
         </div>
-        
+ 
+       
     </div>
+ <!-- //boutton reservé -->
 
     @endforeach
 
         <!-- SONG -->
 
         
-
+<div>
+@if(session('flash_message'))
+<div class="alert alert-success">
+    {{ session('flash_message') }}
+</div>
+@endif  
+</div>
 
 
 </div>

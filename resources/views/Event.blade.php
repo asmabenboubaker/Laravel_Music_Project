@@ -13,6 +13,10 @@
         <div id="preloader">
             <div class="p">
                 <img src="{{Vite::asset('resources/assets/images/headphone.png')}}" alt="headphone">
+                <img src="{{ asset('images/' . $blog->image) }}" alt="Blog Image">
+
+
+
             </div>
             <div class="p">Use Headphone For Better Experience.</div>
         </div>
