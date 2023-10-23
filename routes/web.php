@@ -30,7 +30,6 @@ Route::get('/home', function () {
     return view('Home');
 });
 Route::post('/createTicket', 'App\Http\Controllers\TicketController@store')->name('ticket.store');
-
 Route::get('/songs', function () {
     return view('Songs');
 });
