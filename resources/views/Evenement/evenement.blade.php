@@ -80,7 +80,9 @@
     
     
         <div class="song-img">
-            <img src="{{Vite::asset('resources/assets/images/main-bg-three.jpg')}}" alt="song">
+            <!-- <img src="{{Vite::asset('resources/assets/images/main-bg-three.jpg')}}" alt="song"> -->
+            <img src="{{ asset('images/' . $item->image) }}" alt="Blog Image">
+
         </div>
     
         <div class="song-details">

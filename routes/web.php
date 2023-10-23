@@ -54,9 +54,7 @@ Route::get('/blogDetail', function () {
 
 Route::resource("/event", EventController::class);
 
-Route::get('/event', function () {
-    return view('Event');
-});
+
 
 
 Route::get('/addBlog', function () {
