@@ -6,6 +6,7 @@
     <title>@yield('title', 'Laravel')</title>
       
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/comment.css">
     @vite('resources/assets/js/pace.js') 
         @vite('resources/assets/js/jquery.min.js')
         @vite('resources/assets/js/bez.js')
@@ -18,6 +19,8 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
     <header>

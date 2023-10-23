@@ -1,12 +1,14 @@
 @extends('template')
 
 @section('content')
+
 <head>
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
+
 <body>
   <main id="blog-single">
 
@@ -61,36 +63,64 @@
 
         <!-- BLOG IMG -->
         <div class="blog-img img">
-        <img src="{{ asset('images/' . $blog->image) }}" alt="Blog Image">
-       
+          <img src="{{ asset('images/' . $blog->image) }}" alt="Blog Image">
+
 
         </div>
         <!-- BLOG IMG -->
-        
+
 
         <h2>{{ $blog->title }}</h2>
-<p>{{ $blog->content }}</p>
+        <p>{{ $blog->content }}</p>
 
-<!-- Comments section -->
- 
+        <!-- Comments section -->
 
+        <!-- Header -->
+        <!-- End Header -->
 
-<div id="commentsList">
-    @foreach($blog->comments as $comment)
-        <div>
-        <p><strong>{{ $comment->user->name }}</strong>: {{ $comment->content }}</p>
+        <!-- Chat -->
+
+        <div id="commentsList">
+          @foreach($blog->comments as $comment)
+          <div class="comment comment-container" data-comment-id="{{ $comment->id }}">
+            <div class="comment-content">
+              <div class="user-avatar">
+                <!-- Include the user avatar here -->
+               
+                <img src="https://assets.edlin.app/images/rossedlin/03/rossedlin-03-100.jpg" alt="User avatar">
+              </div>
+              <div class="comment-text">
+                <p><strong>{{ $comment->user->name }}</strong>: {{ $comment->content }}</p>
+              </div>
+            </div>
+            @if(Auth::check() && $comment->user_id == Auth::user()->id)
+            <div class="comment-actions">
+          
+          
+            <form method="POST" action="{{ url('/commentsDelete' . '/' . $comment->id) }}" accept-charset="UTF-8" style="display:inline">
+            {{ method_field('DELETE') }}
+            {{ csrf_field() }}
+            <button class="btn btn-dark mx-1" type="submit" class="btn btn-primary mx-1" title="Delete blog" onclick="return confirm('Confirm delete?')"><i class="fa fa-trash-o" aria-hidden="true"></i> </button>
+
+        </form>
+             
+            </div>
+            @endif
+          </div>
+          @endforeach
         </div>
-    @endforeach
-</div>
 
 
-<h3>Add a Comment</h3>
 
-<form action="{{ route('comments.store', $blog->id) }}" method="post">
-    @csrf
-    <textarea name="content" required></textarea>
-    <button type="submit">Add Comment</button>
-</form>
+        <div class="comment-form">
+          <h3>Add a Comment</h3>
+          <form action="{{ route('comments.store', $blog->id) }}" method="post">
+            @csrf
+            <textarea name="content" required></textarea>
+            <button type="submit">Add Comment</button>
+          </form>
+        </div>
+
         <div class="center-para">
 
           <!-- BLOG TEXT -->
@@ -255,33 +285,104 @@
 
   </main>
   <script>
-$(document).ready(function() {
-    $('form').on('submit', function(e) {
+    $(document).ready(function() {
+      $('form').on('submit', function(e) {
         e.preventDefault(); // Prevents default form submission
 
         $.ajax({
-            url: $(this).attr('action'),
-            type: 'POST',
-            data: $(this).serialize(),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Append the new comment to the comments section
-                let newComment = `<div><p>${response.comment.content}</p></div>`;
-                $(newComment).appendTo('#commentsList'); 
+          url: $(this).attr('action'),
+          type: 'POST',
+          data: $(this).serialize(),
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          success: function(response) {
+            // Append the new comment to the comments section
+            let newComment = `<div id="commentsList">
+          
+          <div class="comment comment-container" data-comment-id="{{ $comment->id }}">
+            <div class="comment-content">
+              <div class="user-avatar">
+                <!-- Include the user avatar here -->
+               
+                <img src="https://assets.edlin.app/images/rossedlin/03/rossedlin-03-100.jpg" alt="User avatar">
+              </div>
+              <div class="comment-text">
+                <p><strong>{{ $comment->user->name }}</strong>: ${response.comment.content}</p>
+              </div>
+            </div>
+            @if(Auth::check() && $comment->user_id == Auth::user()->id)
+            <div class="comment-actions">
+          
+          
+            <form method="POST" action="{{ url('/commentsDelete' . '/' . $comment->id) }}" accept-charset="UTF-8" style="display:inline">
+            {{ method_field('DELETE') }}
+            {{ csrf_field() }}
+            <button class="btn btn-dark mx-1" type="submit" class="btn btn-primary mx-1" title="Delete blog" onclick="return confirm('Confirm delete?')"><i class="fa fa-trash-o" aria-hidden="true"></i> </button>
 
-                // Clear the textarea after submission
-                $('textarea[name="content"]').val('');
-            },
-            error: function(error) {
-                // Handle any errors here. For now, we'll just log them.
-                console.error("There was an error adding the comment:", error);
-            }
+        </form>
+             
+            </div>
+            @endif
+          </div>
+          
+        </div>`;
+            $(newComment).appendTo('#commentsList');
+
+            // Clear the textarea after submission
+            $('textarea[name="content"]').val('');
+          },
+          error: function(error) {
+            // Handle any errors here. For now, we'll just log them.
+            console.error("There was an error adding the comment:", error);
+          }
         });
+      });
+
+      // $.ajaxSetup({
+      //   headers: {
+      //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      //   }
+      // });
+      //   // Delete Comment
+      // $(document).on('click', '.deletecomment', function() {
+        
+      //   if (confirm('Are you sure you want to delete this comment?'))
+
+      //   {
+      //     // var thisClicked = document.getElementsByClassName('deletecomment');
+      //     // console.log("thisClicked : ", thisClicked.val());
+
+      //     var comment_id =$(this).attr("value");
+      //     console.log("comment_id : ", comment_id);
+          
+      //     $.ajax({
+      //       type: "POST",
+      //       url: "/deletecommentroute",
+      //       data: {
+      //         'comment_id': $(this).attr("value")
+      //       },
+      //       headers: {
+      //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      //       },
+      //       success: function(res) {
+      //         if (res.status == 200) {
+      //           thisClicked.closest('.comment-container').remove();
+      //           alert(res.message);
+      //           console.log("DATA : ", res);
+      //         } else {
+      //           alert(res.message);
+      //           console.log("DATA : ", res);
+      //         }
+      //       }            
+      //     });
+          
+      //   }
+      // });
+      
+      //end delete
     });
-});
-</script>
+  </script>
 
 
 
