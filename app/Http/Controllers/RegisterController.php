@@ -27,12 +27,13 @@ public function register(Request $request)
         'name' => $data['name'],
         'email' => $data['email'],
         'password' => Hash::make($data['password']),
+        'role' => 'admin',
     ]);
 
     // Log the user in
-    auth()->login($user);
+    // auth()->login($user);
 
     // Redirect to a dashboard or wherever you want
-    return redirect()->route('dashboard');
+    return redirect()->route('auth.login');
 }
 }

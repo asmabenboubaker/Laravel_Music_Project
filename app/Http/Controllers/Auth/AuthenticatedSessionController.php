@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -28,8 +29,15 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $user = Auth::user();
+        // return redirect()->intended(RouteServiceProvider::HOME);
+        if ($user->isAdmin()) {
+            Log::info('This is an info message back .');
+            return redirect('http://localhost:8001/blog'); // Redirect admin to the front office application.
+        } else {
+            Log::info('This is an info message. frot ');
+            return redirect(RouteServiceProvider::HOME); // Redirect non-admin to the home page of your application.
+        }
     }
 
     /**
@@ -43,6 +51,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }
+ 

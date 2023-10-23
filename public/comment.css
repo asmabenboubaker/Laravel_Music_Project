@@ -1,0 +1,79 @@
+.comment {
+    display: flex;
+    align-items: flex-start;
+    margin: 10px 0;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.comment-text {
+    margin-left: 10px;
+}
+
+.comment-actions {
+    margin-left: auto;
+}
+
+.edit-comment,
+.delete-comment {
+    margin-right: 10px;
+    text-decoration: none;
+}
+/* Style the form container */
+.comment-form {
+    background-color: #494848;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the "Add a Comment" heading */
+.comment-form h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Style the comment input textarea */
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #131313;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Style the submit button */
+.comment-form button {
+    background-color: #53575c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Change button color on hover */
+.comment-form button:hover {
+    background-color: #0056b3;
+}
+.btn-dark {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Text color */
+    border: 1px solid #333; /* Border color (you can adjust this) */
+}
+
+.btn-dark:hover {
+    background-color: #555; /* Dark background color on hover */
+    color: #fff; /* Text color on hover */
+    border: 1px solid #555; /* Border color on hover (you can adjust this) */
+}

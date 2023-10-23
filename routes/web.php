@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\TypeController;
-
-
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,22 +21,26 @@ use App\Http\Controllers\TypeController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::post('/deletecommentroute',[CommentController::class,'destroy']);
 
-Route::resource('blog', BlogController::class);
 Route::resource('categories', CategorieController::class);
 
+ 
 Route::get('/home', function () {
-    return view('Home');
-});
+    return view('home');
+})->name('home');
 
 Route::get('/songs', function () {
     return view('Songs');
 });
 
-Route::get('/blogs', function () {
-    return view('Blogs');
-});
+// Route::get('/blog', function () {
+//     return view('index');
+// })->name('blogs');
 
+Route::get('/login', function () {
+    return view('auth.login');
+});
 //route to save blog in database
 Route::post('/addblog2s', 'App\Http\Controllers\BlogController@store')->name('Blog.store');
 
@@ -63,7 +66,7 @@ Route::get('/addBlog', function () {
     return view('create');
 });
 
-Route::get('edit/{id}/edit', 'BlogController@edit')->name('blog.edit');
+// Route::get('edit/{id}/edit', 'BlogController@edit')->name('blog.edit');
  
 Route::get('/', function () {
     return view('welcome');
@@ -74,7 +77,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -109,6 +112,22 @@ Route::get('/audio/{filename}', function ($filename) {
 // Route Type
 Route::resource("/types", TypeController::class);
 
+// user verfication mail 
+ 
+Route::middleware(['auth', 'verified'])->group(function () {
+   // verified email accout 
+   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+   Route::resource('blog', BlogController::class);
+});
+// Route::get('comments/{id}/edit', 'CommentController@edit')->name('comments.edit');
+Route::delete('/commentsDelete/{id}', 'App\Http\Controllers\CommentController@destroy')->name('comments.destroy');
+
+
+
+
+
+// Route::post('comments',[App\Http\Controllers\CommentController::class,'store']);
+ 
 
 
 
