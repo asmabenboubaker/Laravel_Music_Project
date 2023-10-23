@@ -14,6 +14,7 @@
         <p class="card-text">artist : {{ $music->artist }}</p>
         <p class="card-text">album : {{ $music->album }}</p>
   </div>
+  
        
     
   
