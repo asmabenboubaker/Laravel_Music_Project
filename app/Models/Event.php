@@ -17,5 +17,7 @@ class Event extends Model
         'lieu',
         'artiste',
         'categorie',
+        'image'
+
     ];
 }

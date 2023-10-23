@@ -27,9 +27,14 @@ Route::resource('categories', CategorieController::class);
 
  
 Route::get('/home', function () {
+ 
     return view('home');
 })->name('home');
-
+ 
+    
+ 
+Route::post('/createTicket', 'App\Http\Controllers\TicketController@store')->name('ticket.store');
+ 
 Route::get('/songs', function () {
     return view('Songs');
 });
@@ -57,9 +62,7 @@ Route::get('/blogDetail', function () {
 
 Route::resource("/event", EventController::class);
 
-Route::get('/event', function () {
-    return view('Event');
-});
+
 
 
 Route::get('/addBlog', function () {
