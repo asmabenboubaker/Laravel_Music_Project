@@ -104,10 +104,14 @@
 
             </div>
             
+            
         </div>
-        
+       
     </div>
-
+ <!-- //boutton reservé -->
+ <div class="reserve">
+ <button type="button" class="btn btn-danger">reserve</button>
+                </div>
     @endforeach
 
         <!-- SONG -->

@@ -29,6 +29,9 @@ Route::resource('categories', CategorieController::class);
 Route::get('/home', function () {
     return view('Home');
 });
+Route::get('/ticket', function () {
+    return view('Evenement.ticket');
+});
 
 Route::get('/songs', function () {
     return view('Songs');
